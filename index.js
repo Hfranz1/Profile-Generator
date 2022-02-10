@@ -87,3 +87,41 @@ creatManager()
 
 console.log("!!!!!!!!!!!!")
 console.log(newTeam);
+
+//Add employee
+function createEmployee() {
+    return inquirer.prompt([
+        {
+            type: "list",
+            name: 'employeeRole',
+            message: "Select employee role",
+            choices: ['Engineer', 'Intern']
+        },
+        {
+            type: 'input',
+            name: 'name',
+            message: "What is the employee's name",
+            validate: nameInput => {
+                if (nameInput) {
+                    return true;
+                } else {
+                    console.log("Please enter a valid name");
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: "Please enter employee ID",
+            validate: nameInput => {
+                if (isNaN(nameInput)) {
+                    console.log("Enter valid employee ID")
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        };
+    ])
+}
