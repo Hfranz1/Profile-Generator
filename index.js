@@ -1,3 +1,6 @@
+//Link to create HTML
+const generateHTML = require('.src/generateHTML');
+
 //required packages
 const inquirer = require('inquirer')
 const fs = require('fs');
@@ -24,7 +27,42 @@ function creatManager() {
         {
             type: "input",
             name: "firstName",
-            message: "what is your first name?"
+            message: "what is your first name?",
+            validate: nameInput => {
+                if (nameInput) {
+                    return true;
+                } else {
+                    console.log("Please enter manager's name.")
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: "What is your ID number?",
+            validate: nameInput => {
+                if (isNaN(nameInput)) {
+                    console.log("Please enter valid ID number")
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: "What is your email?",
+            validate: email => {
+                valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+                if (valid) {
+                    return true;
+                } else {
+                    console.log('Please enter valid email')
+                    return false;
+                }
+            }
         },
 
     ]).then(function (answer) {
