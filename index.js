@@ -99,7 +99,7 @@ function createEmployee() {
         },
         {
             type: 'input',
-            name: 'name',
+            name: 'employeeName',
             message: "What is the employee's name",
             validate: nameInput => {
                 if (nameInput) {
@@ -112,7 +112,7 @@ function createEmployee() {
         },
         {
             type: 'input',
-            name: 'id',
+            name: 'employeeID',
             message: "Please enter employee ID",
             validate: nameInput => {
                 if (isNaN(nameInput)) {
@@ -121,7 +121,73 @@ function createEmployee() {
                 } else {
                     return true;
                 }
+
             }
-        };
+        },
+        {
+            type: 'input',
+            name: 'employeeEmail',
+            message: "What is employee's email?",
+            validate: email => {
+                valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+                if (valid) {
+                    return true;
+                } else {
+                    console.log('Please enter valid employee email')
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'github',
+            message: "What is employee Github username?",
+            when: (input) => input.role === "Engineer",
+            validate: nameInput => {
+                if (nameInput) {
+                    return true;
+                } else {
+                    console.log("Please enter a valid employee Github user name")
+                }
+            }
+        },
+        {
+            type: 'input',
+            name: 'school',
+            message: "What school does/did employee attend?",
+            when: (input) => input.role === "Intern",
+            validate: nameInput => {
+                if (nameInput) {
+                    return true;
+                } else {
+                    console.log("Please enter a valid school")
+                }
+            }
+        },
+        {
+            type: 'confirm',
+            name: 'confirmAddEmployee',
+            message: "Would you like to add another team member?",
+            default: true,
+        },
     ])
-}
+        .then(employeeData => {
+            let { name, id, email, role, github, school, confirmAddEmployee } = addNewEmployees;
+            let employee;
+            if (role === "Engineer") {
+                employee = new Engineer(employeeName, employeeID, employeeEmail, github);
+                newTeam.push(employee)
+            } else if (role === "Intern") {
+                employee = new Intern(employeeName, employeeID, employeeEmail, school);
+                newTeam.push(employee)
+            }
+            newTeam.push(employee);
+            if (confirmAddEmployee) {
+                return createEmployee(newTeam);
+            } else {
+                return newTeam;
+            }
+        })
+    console.log(employee);
+};
+addNewEmployees();
