@@ -1,5 +1,5 @@
 //Link to create HTML
-const generateHTML = require('.src/generateHTML');
+const generateHTML = require('.src/generateHTML.js');
 
 //required packages
 const inquirer = require('inquirer')
@@ -11,23 +11,21 @@ const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
 
 //Arrays for employee types
-const managerArray = [];
-const internArray = [];
-const engineerArray = [];
+const newTeam = [];
 
 //init function
-function init() {
-    console.log('Please answer a few question about your manager to start generating profiles for your employees, we will start with your mannager.')
-    creatManager();
-}
+//function init() {
+//    console.log('Please answer a few question about your manager to start generating profiles for your employees, we will start with your mannager.')
+//    creatManager();
+//}
 
 //team function
 function creatManager() {
     inquirer.prompt([
         {
             type: "input",
-            name: "firstName",
-            message: "what is your first name?",
+            name: "managerName",
+            message: "what is your manager's name?",
             validate: nameInput => {
                 if (nameInput) {
                     return true;
@@ -39,7 +37,7 @@ function creatManager() {
         },
         {
             type: 'input',
-            name: 'id',
+            name: 'managerID',
             message: "What is your ID number?",
             validate: nameInput => {
                 if (isNaN(nameInput)) {
@@ -52,7 +50,7 @@ function creatManager() {
         },
         {
             type: 'input',
-            name: 'email',
+            name: 'managerEmail',
             message: "What is your email?",
             validate: email => {
                 valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
@@ -64,9 +62,28 @@ function creatManager() {
                 }
             }
         },
-
-    ]).then(function (answer) {
-        console.log(answer)
+        {
+            type: 'input',
+            name: 'officeNumber',
+            message: "What is your assigned office number?",
+            validate: nameInput => {
+                if (isNaN(nameInput)) {
+                    console.log('Please enter your assigned office number')
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        },
+    ]).then(addNewEmployees => {
+        const { managerName, managerID, managerEmail, officeNumber } = addNewEmployees;
+        const mgmt = new Manager(managerName, managerID, managerEmail, officeNumber)
+        newTeam.push(mgmt)
+        console.log(mgmt);
     })
-}
-creatManager();
+};
+creatManager()
+    .then(createEmployee)
+
+console.log("!!!!!!!!!!!!")
+console.log(newTeam);
