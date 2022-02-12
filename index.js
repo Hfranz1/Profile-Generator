@@ -1,5 +1,5 @@
 //Link to create HTML
-const generateHTML = require('.src/generateHTML.js');
+const generateHTML = require('.src/generateHTML');
 
 //required packages
 const inquirer = require('inquirer')
