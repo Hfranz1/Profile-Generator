@@ -1,5 +1,5 @@
 //Link to create HTML
-const generateHTML = require('.src/generateHTML');
+const generateHTML = require("./src/generateHTML")
 
 //required packages
 const inquirer = require('inquirer')
@@ -80,10 +80,10 @@ function creatManager() {
         const mgmt = new Manager(managerName, managerID, managerEmail, officeNumber)
         newTeam.push(mgmt)
         console.log(mgmt);
+
+        createEmployee()
     })
 };
-creatManager()
-    .then(createEmployee)
 
 console.log("!!!!!!!!!!!!")
 console.log(newTeam);
@@ -172,7 +172,7 @@ function createEmployee() {
         },
     ])
         .then(employeeData => {
-            let { name, id, email, role, github, school, confirmAddEmployee } = addNewEmployees;
+            let { employeeName, employeeID, employeeEmail, role, github, school, confirmAddEmployee } = employeeData;
             let employee;
             if (role === "Engineer") {
                 employee = new Engineer(employeeName, employeeID, employeeEmail, github);
@@ -181,13 +181,14 @@ function createEmployee() {
                 employee = new Intern(employeeName, employeeID, employeeEmail, school);
                 newTeam.push(employee)
             }
-            newTeam.push(employee);
+
             if (confirmAddEmployee) {
-                return createEmployee(newTeam);
+                createEmployee();
             } else {
-                return newTeam;
+                generateHTML(newTeam);
             }
         })
     console.log(employee);
 };
-addNewEmployees();
+
+creatManager()

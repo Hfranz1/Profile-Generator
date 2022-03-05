@@ -1,5 +1,5 @@
-
-function generateHTML(data) {
+const fs = require("fs")
+function generateManager(data) {
     console.log(data);
     return
     `<div class="col-4 mt-4">
@@ -57,50 +57,58 @@ const generateIntern = function (intern) {
 };
 
 //HTML push
-generateHTML = (data) => {
+const generateHTML = (data) => {
 
 
-    pageArray = [];
+    let pageArray = [];
 
     for (let i = 0; i < data.length; i++) {
-        const Employee = data[i];
-        const role = employee.getRole();
+        let employee = data[i];
+        let role = employee.getRole();
 
 
 
         if (role === 'Manager') {
-            const managerCard = generateManager(employee);
+            let managerCard = generateManager(employee);
 
             pageArray.push(managerCard);
         }
 
 
         if (role === 'Engineer') {
-            const engineerCard = generateEngineer(employee);
+            let engineerCard = generateEngineer(employee);
 
             pageArray.push(engineerCard);
         }
 
 
         if (role === 'Intern') {
-            const internCard = generateIntern(employee);
+            let internCard = generateIntern(employee);
 
             pageArray.push(internCard);
         }
 
     }
 
-
+    console.log(pageArray)
     const employeeCards = pageArray.join('')
+    console.log(employeeCards)
 
 
     const generateTeam = generateTeamPage(employeeCards);
-    return generateTeam;
+    console.log(generateTeam);
+    fs.writeFileSync('./dist/index.html', data, err => {
+        if (err) {
+            console.log(err);
+            return;
+        } else {
+            console.log("Team profile has been created")
+        }
+    })
+};
 
-}
 
-
-const generateTeamPage = function (employeeCards) {
+const generateTeamPage = (employeeCards) => {
     return
     `<!DOCTYPE html >
         <html lang="en">
