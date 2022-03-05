@@ -1,1 +1,54 @@
 # Profile-Generator
+## Decription
+An application that takes in information about employees then generates a HTML page to display the input for each employee.
+
+## User Story
+```
+As A manager
+I WANT to generate a webpage that displays my team's basic info
+SO THAT I have quick access to their emails and GitHub profiles
+```
+## Acceptance Criteria
+
+```md
+GIVEN a command-line application that accepts user input
+WHEN I am prompted for my team members and their information
+THEN an HTML file is generated that displays a nicely formatted team roster based on user input
+WHEN I click on an email address in the HTML
+THEN my default email program opens and populates the TO field of the email with the address
+WHEN I click on the GitHub username
+THEN that GitHub profile opens in a new tab
+WHEN I start the application
+THEN I am prompted to enter the team manager’s name, employee ID, email address, and office number
+WHEN I enter the team manager’s name, employee ID, email address, and office number
+THEN I am presented with a menu with the option to add an engineer or an intern or to finish building my team
+WHEN I select the engineer option
+THEN I am prompted to enter the engineer’s name, ID, email, and GitHub username, and I am taken back to the menu
+WHEN I select the intern option
+THEN I am prompted to enter the intern’s name, ID, email, and school, and I am taken back to the menu
+WHEN I decide to finish building my team
+THEN I exit the application, and the HTML is generated
+```
+
+## Installation
+
+Git Clone the Repo:
+```
+git clone at https://github.com/Hfranz1/Profile-Generator
+```
+Run:
+```
+npm install
+```
+The application will run using:
+```
+node index.js
+```
+
+## Usage
+
+https://user-images.githubusercontent.com/87962035/156866249-091a17dd-fbef-47e0-b360-cb085178f4d4.mov
+
+## Link
+
+GitHub: https://github.com/Hfranz1/Profile-Generator
