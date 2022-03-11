@@ -1,17 +1,23 @@
-const fs = require("fs")
-function generateManager(data) {
-    console.log(data);
+function generateHTML(data) {
+    console.log(data)
+    return generateTeamPage
+};
+
+
+const generateManager = function (manager) {
     return
     `<div class="col-4 mt-4">
-        <div class="card h-100">
-            <div class="card-header">
+        <div class="card h-100 shadow p-3 mb-5 bg-body rounded">
+            <div class="card-header p-2 mb-1 bg-sucess text-white">
                 <h3>${manager.name}</h3>
-                <h4>Manager</h4><i class="material-icons">content_paste</i>
+                <h4>Manager</h4><i class="fas fa-mug-hot"></i>
             </div>
             <div class="card-body">
-                <p class="ID">ID: ${manager.id}</p>
-                <p class="Email">Email: <a href="mailto:${manager.email}">${manager.email}</a></p>
-                <p class="office">Office Number: ${manager.officeNumber}</p>
+               <ul class="list-group list-group-flash">
+                <li class="list-group-item">ID: ${manager.id}</li>
+                <li class="list-group-item">Email: <a href="mailto:${manager.email}">${manager.email}</a></li>
+                <li class="list-group-item">Office Number: ${manager.officeNumber}</li>
+                </ul>
             </div>
         </div>
     </div>`
@@ -22,15 +28,16 @@ function generateManager(data) {
 const generateEngineer = function (engineer) {
     return
     `<div class="col-4 mt-4">
-        <div class="card h-100">
-            <div class="card-header">
+        <div class="card h-100 shadow p-3 mb-5 bg-body rounded">
+            <div class="card-header p-2 mb-1 bg-success text-white">
                 <h3>${engineer.name}</h3>
-                <h4>Engineer</h4><i class="material-icons">laptop_mac</i>
+                <h4>Engineer</h4><i class="fas fa-laptop"</i>
             </div>
             <div class="card-body">
-                <p class="ID">ID: ${engineer.id}</p>
-                <p class="Email">Email: <a href="mailto:${engineer.email}">${engineer.email}</a></p>
-                <p class="github">Github: <a href="https://github.com/${engineer.github}">${engineer.github}</a></p>
+            <ul class=list-group list-group=flash">
+                <ul class="list-group-item">ID: ${engineer.id}</li>
+                <li class="list-group-item">Email: <a href="mailto:${engineer.email}">${engineer.email}</a></li>
+                <li class="list-group-item">Github: <a href="https://github.com/${engineer.github}">${engineer.github}</a></li s>
             </div>
         </div>
     </div>`
@@ -41,15 +48,17 @@ const generateEngineer = function (engineer) {
 const generateIntern = function (intern) {
     return
     `<div class="col-4 mt-4">
-        <div class="card h-100">
+        <div class="card h-100 shadow p-3 mb-5 bg-sucess text-white">
             <div class="card-header">
                 <h3>${intern.name}</h3>
-                <h4>Intern</h4><i class="material-icons">assignment_ind</i>
+                <h4>Intern</h4><i class="fas fa-user-graduate</i>
             </div>
             <div class="card-body">
-                <p class="ID">ID: ${intern.id}</p>
-                <p class="Email">Email: <a href="mailto:${intern.email}">${intern.email}</a></p>
-                <p class="school">school: ${intern.school}</p>
+            <ul class="list-group list-group-flash">
+                <li class="list-group-item">ID: ${intern.id}</li>
+                <li class="list-group-item">Email: <a href="mailto:${intern.email}">${intern.email}</a></li>
+                <li class="list-group-item">school: ${intern.school}</li>
+                <ul>
             </div>
         </div>
     </div>`
@@ -57,10 +66,10 @@ const generateIntern = function (intern) {
 };
 
 //HTML push
-const generateHTML = (data) => {
+generateHTML = data => {
 
 
-    let pageArray = [];
+    pageArray = []
 
     for (let i = 0; i < data.length; i++) {
         let employee = data[i];
@@ -69,71 +78,65 @@ const generateHTML = (data) => {
 
 
         if (role === 'Manager') {
-            let managerCard = generateManager(employee);
+            const managerCard = generateManager(employee);
 
             pageArray.push(managerCard);
         }
 
 
         if (role === 'Engineer') {
-            let engineerCard = generateEngineer(employee);
+            const engineerCard = generateEngineer(employee);
 
             pageArray.push(engineerCard);
         }
 
 
         if (role === 'Intern') {
-            let internCard = generateIntern(employee);
+            const internCard = generateIntern(employee);
 
             pageArray.push(internCard);
         }
 
     }
 
-    console.log(pageArray)
+
     const employeeCards = pageArray.join('')
-    console.log(employeeCards)
 
 
-    const generateTeam = generateTeamPage(employeeCards);
-    console.log(generateTeam);
-    fs.writeFileSync('./dist/index.html', data, err => {
-        if (err) {
-            console.log(err);
-            return;
-        } else {
-            console.log("Team profile has been created")
-        }
-    })
-};
+    const generateTeam = generateTeamPage(employeeCards)
+    return generateTeam
+}
 
 
-const generateTeamPage = (employeeCards) => {
+const generateTeamPage = function (employeeCards) {
     return
     `<!DOCTYPE html >
         <html lang="en">
             <head>
-                <meta harset="UFT-8">
+                <meta charset="UFT-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+                    <script src="https://kit.fontawesome.com/dc872b6565.js" crossorigin="anonymous"></script>
                         <title>My Team</title>
                         <link rel="stylesheet" href="style.css">
                         </head>
                         <body>
                             <header>
-                                <nav class="navbar" id="navbar">
-                                    <span class="navbar-brand mb-0 h1 w-100 text-center" id="navbar-text">My Team</span>
+                                <nav class="navbar .bg-primary.bg-gradient" id="navbar">
+                                    <span class="navbar-brand mb-0 h1 w-100 text-center p-3 mb-2 bg-warning text-dark" id="navbar-text">My Team</span>
                                 </nav>
                             </header>
                             <main>
                                 <div class="container">
-                                    <div class="row justify-content-center" id="team-cards">
+                                    <div class="row justify-content-center .bg-secondary.bg-gradient" id="team-cards">
                                         ${employeeCards}
                                     </div>
                                 </div>
                             </main>
+                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
                         </body>
                     </html>`
-        ;
+
 }
 
 module.exports = generateHTML;
